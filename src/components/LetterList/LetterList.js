@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
+import classes from './LetterList.css';
 
 class LetterList extends Component {
   render() {
     let gyms = this.props.letterObj.gymNames.map((a, index) => {
-      return (<li>{a}</li>)
+      return (<li key={index}>{a}</li>)
     })
-    return <ul><li>{this.props.letterObj.group}</li>
-      <ul><li>{gyms}</li></ul></ul>
+    return (
+      <div className={classes.LetterList}>
+        <ul>
+          <li>{this.props.letterObj.letter}</li>
+          <ul>
+            <li>{gyms}</li>
+          </ul>
+        </ul>
+      </div>
+    )
   }
 }
 

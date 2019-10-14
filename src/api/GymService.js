@@ -14,21 +14,25 @@ class GymService {
 
       const sortedGyms = data.sort();
 
-      const groupedGyms = sortedGyms.reduce((r, e) => {
+      const groupedGyms = sortedGyms.reduce((gyms, gymName) => {
         // get first letter of name of current element
-        let group = e[0];
+        let letter = gymName[0];
         // if there is no property in accumulator with this letter create it
-        if (!r[group]) r[group] = { group, gymNames: [e] }
-        // if there is push current element to children array for that letter
-        else r[group].gymNames.push(e);
+        if (!gyms[letter]) {
+          gyms[letter] = { letter, gymNames: [gymName] }
+        } else {
+          // if there is push current element to children array for that letter
+          gyms[letter].gymNames.push(gymName);
+        }
         // return accumulator
-        return r;
+        return gyms;
       }, {});
-      var finalResult = Object.keys(groupedGyms).map((key) => {
+
+      var gymsArray = Object.keys(groupedGyms).map((key) => {
         return groupedGyms[key];
       })
       // 3. Return the data to the client
-      return finalResult;
+      return gymsArray;
 
     } catch (err) {
 
